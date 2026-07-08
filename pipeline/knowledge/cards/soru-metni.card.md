@@ -106,3 +106,10 @@ Blueprint `metin_turu`yu verir; reçeteye göre yaz:
 - **V7 — "Seçenek mühendisliği" cümlesi YASAK.** Gövdeyi yalnız kendi iç tutarlılığı için yaz. Sırf bir çeldiriciyi elemek/bir şıkkı kurmak için eklenen, çıkarılınca metnin akışını bozmayan yapay cümleler koyma (ör. konuyu tam gerektirmediği hâlde "…karşılığında ödül beklenen bir uğraş değildir" gibi bir şıkkı devre dışı bırakan ekleme).
 - **V9 — Analiz için sentez gerektir.** Sipariş Analiz/Değerlendirme ise gövdeyi öyle kur ki doğru cevap TEK cümlenin tekrarı değil, en az iki öğenin birleştirilmesiyle (karşılaştırma/çıkarım/genelleme) bulunabilsin. Ana fikri son cümlede açıkça söyleyip bitirme (D9); okuru sentez yapmaya bırak.
 - Not: doğru cevabı ima etme kuralı sürüyor; hedef_dogru_harf'i sen görmezsin, yalnız gövde+kök yazarsın.
+
+
+=====================
+## v3 — 10/10 HEDEFİ (bağlayıcı)
+- **F1:** Analiz/Değerlendirme siparişinde gövdeyi öyle kur ki doğru cevap ancak iki+ öğenin birleştirilmesiyle / geçerli-görünen-geçersiz çıkarımın elenmesiyle / karşılaştırmadan sonuç çıkarmayla bulunabilsin. Ana fikri tek cümlede açıkça söyleyip bitirme.
+- **F3(i):** Gövdede işlevsiz dolgu/süs cümle yazma — her cümle bağlama veya ölçmeye hizmet etsin (kısa gövde iyidir, süs cümlesi kötü).
+- **F2 hazırlığı:** "vurgu/ana fikir" kökü kullanacaksan gövdeyi, sonradan yazılacak çeldiricilerin metinle çelişebileceği ya da metin-dışı olabileceği biçimde kur; bir ayrıntıyı ana fikirmiş gibi öne çıkarma.

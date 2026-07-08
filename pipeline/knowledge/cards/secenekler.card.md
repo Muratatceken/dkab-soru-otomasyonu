@@ -85,3 +85,10 @@ Sen doğru şıkkı ve ayet-şık setlerini üreten rolsün; bu yüzden şu kodl
 - **V4 — Doğru şık TEK cümle parafrazı olamaz.** Doğru şık, gövdedeki tek bir cümlenin (özellikle SON cümlenin) eş anlamlısı olamaz; en az iki bilgiden SENTEZle kurulur. Kendine sor: "Tek cümle bulup eş anlamlı yazarak bulunur mu?" → evetse yeniden yaz.
 - **V5 — Tek savunulabilir doğru.** Doğru dışındaki en güçlü şıkkı zihnen savunmaya çalış; savunulabiliyorsa çeldiriciyi açıkça yanlış/metin-dışı yap. "Vurgu/ulaşılabilir" köklerinde çeldiriciler "daha az merkezi ama doğru" olamaz.
 - **V6 — Uzunluk paritesi.** Doğru şık diğerlerinden görünür biçimde daha uzun/kapsayıcı/akademik olamaz. Sentez doğruysa çeldiriciler de aynı uzunluk/kapsamda (ama yanlış) olsun.
+
+
+=====================
+## v3 — 10/10 HEDEFİ (bağlayıcı)
+- **F2 — "vurgu/ana fikir/asıl anlatılan" kökünde:** hiçbir çeldirici metnin herhangi bir cümlesince doğrulanabilir OLAMAZ. "Metinde var ama asıl vurgu değil" tipi çeldirici YASAK (ikinci-doğru üretir). Çeldirici ya metinde hiç yok ya da metinle çelişir.
+- **F1 — Analiz maddesinde** çeldiriciler "geçerli görünen ama geçersiz çıkarım" olsun (metin-dışı olgu değil); öğrenciyi mantık hatasıyla yakala.
+- **F3(iii) — Hiçbir şık (doğru dahil) gövdedeki bir cümlenin birebir/yakın parafrazı değildir.** Doğru şık bile en az iki bilgiden sentezlenmiş özgün ifadedir.

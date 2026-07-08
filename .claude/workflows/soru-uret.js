@@ -69,6 +69,23 @@ const RAPOR_OUT = {
   },
 }
 
+// F4 — çok-mercekli doğrulama paneli: uzman merceklerin çıktı şeması
+const LENS_OUT = {
+  type: 'object', additionalProperties: true,
+  required: ['gecti', 'sorunlar'],
+  properties: {
+    gecti: { type: 'boolean' },
+    sorunlar: { type: 'array', items: { type: 'string' } },
+    oneriler: { type: 'array', items: { type: 'string' } },
+  },
+}
+const LENS_TEKDOGRU = `MERCEK — TEK-DOĞRU AVUKATI. Görevin: doğru dışındaki HER şıkkı sırayla savunmaya çalışmak. Metnin HERHANGİ bir cümlesince doğrulanabilen ya da "ikinci doğru" sayılabilecek bir çeldirici bulursan gecti=false yap ve hangi şık / neden olduğunu 'sorunlar'a yaz. ÖZELLİKLE "vurgu/ana fikir/asıl anlatılan" köklerinde: metinde geçen ama "asıl vurgu değil" diye elenen çeldirici = FAIL (F2). Şüphede kal.
+SORU: `
+const LENS_DERINLIK = `MERCEK — BİLİŞSEL-DERİNLİK HAKEMİ. Görevin: madde paragraf-eşleştirme / eş-anlamlı-bulma ile çözülebiliyor mu diye sınamak. Etiket Analiz/Değerlendirme ise gerçekten iki+ öğe sentezi / geçersiz-çıkarım-eleme / karşılaştırmadan sonuç / ilke-uygulama gerekiyor mu? Salt "bul" ise (özellikle Analiz etiketli) gecti=false ve nedenini yaz (F1/V9/V9b). Olumsuz "yerini bul" kökü Analiz etiketliyse FAIL.
+SORU: `
+const LENS_EDITOR = `MERCEK — EDİTÖR. Görevin: (a) gövdede işlevsiz dolgu/süs cümle, (b) gövdedeki bir cümlenin birebir/yakın parafrazı olan şık (doğru dahil), (c) "Doğru cevap X:" biçim ihlali ya da çözümde harf tutarsızlığı, (d) şık paralelliği/terminoloji/ayet künyesi kusuru, (e) testte aynı kaynaktan (aynı sure/ayet grubu) tekrar. Kusur varsa gecti=false ve 'sorunlar'a somut yaz (F3).
+SORU: `
+
 const KURGU_OUT = {
   type: 'object', additionalProperties: true,
   required: ['blueprint', 'kaynak_baglami'],

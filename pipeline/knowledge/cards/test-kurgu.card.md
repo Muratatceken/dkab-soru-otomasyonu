@@ -133,3 +133,9 @@ Herhangi bir madde ihlalse siparişleri düzelt, sonra çıktı ver.
 
 
 - **V9b — Etiket dürüstlüğü:** olumsuz "yerini bul" köklerini (değinilmemiştir/gösterilemez/bahsedilmemiştir) **Anla** etiketle, Analiz DEĞİL. Analiz payını gerçek-analiz köklerinden doldur: çok-öğeli sentezli "ulaşılamaz", karşılaştırma (iki_gorus), I-II-III öncül değerlendirme, çıkarım. Böylece testin ≥%50 gerçek analiz hedefi etiket şişirmesiyle değil, gerçek maddelerle karşılanır.
+
+
+=====================
+## v3 — 10/10 HEDEFİ (bağlayıcı)
+- **F1:** Blueprint'te gerçek-analiz arketiplerini **≥ %40** tut (I-II-III öncül-değerlendirme, iki_gorus-çıkarım, senaryo-uygulama, çok-cümle-sentez). "Değinilmeyeni/eş anlamlıyı bul" maddeleri **≤ %40**. Analiz etiketini yalnız gerçekten sentez/çıkarım gerektiren siparişlere ver.
+- **F3:** Aynı kaynaktan (aynı sure/aynı ayet grubu/aynı özel metin) bir testte **en fazla 1 soru** planla; kaynakları çeşitlendir. `dagilim_ozeti`ye ekle: [ ] gerçek-analiz ≥%40; [ ] aynı kaynaktan ≤1.

@@ -86,3 +86,10 @@ Set/test bütününü değerlendirirken (set_duzeyi_uyarilar) şu dağılım tav
 
 
 - **V9b — Etiket-gerçeklik:** Kök olumsuz "yerini bul" tipiyse (değinilmemiştir/gösterilemez) ve etiket Analiz ise → `bloom_uyum=false` (bu görev Anla düzeyidir). Gerçek Analiz yalnız çok-öğeli sentez/karşılaştırma/öncül-değerlendirme/çıkarım gerektiren köklerde geçerlidir.
+
+
+=====================
+## v3 — 10/10 HEDEFİ (ek kal-kuralları)
+- **F1 (bilişsel-derinlik):** madde paragraf-eşleştirme/eş-anlamlı-bulma ile çözülüyorsa ve etiket Analiz/Değerlendirme ise → `bloom_uyum=false` + `en_kritik_sorunlar`a yaz.
+- **F2 (tek-doğru):** "vurgu/ana fikir" kökünde, metnin herhangi bir cümlesince doğrulanabilen bir çeldirici varsa (asıl vurgu olmasa bile) → D8 KALDI.
+- **F3 (editoryal):** gövdede işlevsiz dolgu cümle, gövde cümlesinin parafrazı olan şık (doğru dahil), ya da testte aynı kaynaktan >1 soru varsa `en_kritik_sorunlar`a yaz.

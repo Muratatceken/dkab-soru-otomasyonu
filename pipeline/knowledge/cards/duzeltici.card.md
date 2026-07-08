@@ -74,3 +74,11 @@ Kapanışta: blueprint alanları (band/polarite/kazanım/metin_turu/zorluk) değ
 - **V4 (D1/D9):** doğru şık tek cümlenin parafrazıysa, iki ayrı bilgiden sentezlenen bir ifadeye dönüştür; cevabı gövdenin son cümlesinden çıkar.
 - **V5 (D8):** ikinci savunulabilir şıkkı açıkça yanlış/metin-dışı yaparak tek doğruyu sağla.
 - **V6 (D2):** doğru şık fazla uzun/kapsayıcıysa kısalt; çeldiricileri aynı kapsam/uzunluğa çıkar.
+
+
+=====================
+## v3 — 10/10 HEDEFİ (ek reçeteler)
+- **F1:** "bul" tipine düşmüş analiz maddesini, iki+ öğe sentezi veya geçersiz-çıkarım-eleme gerektiren gerçek analize dönüştür (blueprint etiketini koru).
+- **F2:** "vurgu" kökünde metinde doğrulanabilen çeldiriciyi, metinle çelişen ya da metin-dışı bir ifadeyle değiştir.
+- **F3:** dolgu cümleyi sil; gövde-cümlesi parafrazı olan şıkkı sentez ifadeyle değiştir.
+- Panel mercek sorunlarının HER BİRİNİ kapat; kapatamadığını `revizyon_gecmisi`de belirt.

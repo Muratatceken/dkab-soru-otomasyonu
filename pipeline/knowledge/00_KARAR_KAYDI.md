@@ -144,3 +144,17 @@ Bir insan değerlendirmecinin çapraz okuması sonrası eklendi. En yıkıcı bu
 **V9 — Gerçek bilişsel düzey (soru-metni + secenekler + capraz-okuma).** Analiz/Değerlendirme etiketli sorularda görev "metindeki cümleyi eş anlamlı bul" OLAMAZ; en az iki öğeyi birleştiren çıkarım / karşılaştırma / genelleme gerekir. Bir testin **en az yarısı** gerçek çıkarım/analiz olmalı (salt anlama-parafraz maddeleri ≤ %50). capraz-okuma `bloom_uyum`u bu ölçütle sıkı uygular.
 
 **V9b — Olumsuz "yerini bul" kökleri Analiz DEĞİLDİR (etiket dürüstlüğü).** "değinilmemiştir / bahsedilmemiştir / örnek gösterilemez" gibi, dört doğrulanabilir öncülü ayıklayıp aykırı olanı bulmaya dayanan olumsuz kökler biliş düzeyi olarak **Anla**'dır; bunları Analiz etiketleme. Gerçek Analiz payını şu köklerle doldur: çok-öğeli sentez ("ulaşılamaz" + gövdeden birleştirme), karşılaştırma (iki_gorus), öncül değerlendirme (I-II-III), çıkarım. test-kurgu Bloom profilini bu dürüstlükle kurar; capraz-okuma `bloom_uyum`u buna göre denetler (etiket Analiz ama görev "aykırı olanı bul" ise bloom_uyum=false).
+
+---
+
+## F) v3 — 10/10 HEDEFİ (BAĞLAYICI; öncekilerle çelişirse BUNLAR geçerli)
+
+8/10 bağımsız değerlendirme sonrası kalan üç zayıflığı (gerçek bilişsel derinlik, tek-doğru sağlamlığı, editoryal cila) ve daha sert doğrulamayı kapatmak için.
+
+**F1 — Gerçek analiz arketipleri (dim e).** Biliş düzeyi ŞİŞİRİLMEZ. "Analiz/Değerlendirme" etiketli her madde şunlardan en az birini gerçekten gerektirir: (i) iki+ cümle/öğe sentezi, (ii) geçerli-görünen-geçersiz çıkarımın ayırt edilmesi, (iii) karşılaştırmadan sonuç, (iv) ilkeyi yeni bir duruma uygulama. Bir testte "değinilmeyeni/eş anlamlıyı bul" maddeleri toplamı **≤ %40**; gerçek-analiz arketipleri **≥ %40**. (Olumsuz "yerini bul" kökleri Anla sayılır — V9b.)
+
+**F2 — Tek-doğru sağlamlığı; "vurgu" kökünde metin-içi çeldirici YASAĞI (dim c).** "vurgu / ana fikir / asıl anlatılan" köklerinde çeldiriciler metnin HERHANGİ bir cümlesince doğrulanabilir OLAMAZ. "Metinde geçiyor ama asıl vurgu değil" tipi çeldirici YASAK (ikinci-doğru riski — S3 dersi). Her çeldirici ya metinde hiç yoktur ya da metinle çelişir.
+
+**F3 — Editoryal cila (dim h).** (i) Gövdede işlevsiz dolgu/süs cümle YOK — her cümle bağlama veya ölçmeye hizmet eder. (ii) Bir testte aynı kaynaktan (aynı sure / aynı ayet grubu / aynı özel metin) **en fazla 1 soru**. (iii) Hiçbir şık (doğru dahil) gövdedeki bir cümlenin birebir/yakın parafrazı DEĞİLDİR.
+
+**F4 — Çok-mercekli doğrulama paneli.** Yayına uygunluk tek denetçiyle değil, bağımsız merceklerin HEPSİ geçince verilir: (1) kapsamlı çapraz-okuma (D1–D11), (2) **tek-doğru avukatı**, (3) **bilişsel-derinlik hakemi**, (4) **editör merceği**. Biri bile kalırsa madde düzelticiye gider (tüm mercek sorunları birlikte), panel tekrar; hepsi geçene ya da 3 tur dolana kadar. Orchestrator'da uygulanır.
