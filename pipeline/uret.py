@@ -50,13 +50,26 @@ def cmd_args(sinif: int, unite: int, soru_sayisi: int, sinav_turu: str = "TYT"):
 
 def cmd_render(json_path: str, baslik: str | None = None):
     from assemble import build_docx
+    from validate import validate
     data = json.load(open(json_path, encoding="utf-8"))
+
+    # V1/V2: montajdan ÖNCE deterministik doğrulama geçidi
+    rap = validate(data)
+    for w in rap["warn"]:
+        print(f"  UYARI: {w}")
+    if rap["hard"]:
+        print(f"\n❌ {len(rap['hard'])} SERT HATA — bu çıktı yayına uygun DEĞİL, render durduruldu:")
+        for h in rap["hard"]:
+            print(f"  - {h}")
+        print("Düzeltici/çapraz-okuma turunu tekrarlayın ya da soruyu yeniden üretin.")
+        sys.exit(1)
+
     bp = data.get("blueprint", {})
     sinif, unite = bp.get("sinif"), bp.get("unite")
     if not baslik:
         baslik = UNITE_BASLIK.get((sinif, unite), f"{unite}. ÜNİTE")
     out, n = build_docx(json_path, baslik)
-    print(f"yazıldı: {out}  ({n} soru)")
+    print(f"✓ doğrulama temiz · yazıldı: {out}  ({n} soru)")
 
 
 if __name__ == "__main__":

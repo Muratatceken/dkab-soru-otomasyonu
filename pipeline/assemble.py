@@ -7,45 +7,23 @@
 Kullanım: python3 pipeline/assemble.py pipeline/output/DKAB11-U2-T1.json "2. ÜNİTE: DİN, FELSEFE, BİLİM VE SANAT"
 """
 import json
-import random
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dkab_pipeline.docx_builder import DocxBuilder
-from dkab_pipeline.tests_processor import balanced_targets
 
 LET = ["A", "B", "C", "D", "E"]
 
-
-def rebalance_answers(sorular, seed=7):
-    """Her sorunun doğru şıkkını, A-E dengeli dağılıma göre hedef harfe taşır."""
-    rng = random.Random(seed)
-    targets = balanced_targets(len(sorular), rng)
-    for q, tgt in zip(sorular, targets):
-        ai = q.get("dogru")
-        sec = q.get("secenekler") or {}
-        if ai not in LET or not all(l in sec for l in LET):
-            continue
-        correct = sec[ai]
-        others = [sec[l] for l in LET if l != ai]
-        ti = LET.index(tgt)
-        new = [""] * 5
-        new[ti] = correct
-        m = 0
-        for i in range(5):
-            if i != ti:
-                new[i] = others[m]
-                m += 1
-        q["secenekler"] = {LET[i]: new[i] for i in range(5)}
-        q["dogru"] = tgt
-    return sorular
+# V1 (değerlendirmeci geri bildirimi): Cevap harfi artık blueprint'te ön-atanır ve
+# üretimde sabitlenir. Montajda A-E KARIŞTIRMASI YAPILMAZ — çünkü karıştırma çözüm
+# metnindeki harf atıflarını bozup çözüm↔anahtar uyuşmazlığı üretiyordu. Dize ve
+# render as-is; tutarlılık validate.py ile deterministik denetlenir.
 
 
 def build_docx(json_path, unite_baslik, out_path=None):
     data = json.load(open(json_path, encoding="utf-8"))
     sorular = data["sorular"]
-    sorular = rebalance_answers(sorular)
 
     d = DocxBuilder()
     d.heading("DİN KÜLTÜRÜ VE AHLAK BİLGİSİ 11", "Title")

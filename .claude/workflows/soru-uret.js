@@ -84,12 +84,13 @@ const KURGU_OUT = {
           type: 'array',
           items: {
             type: 'object', additionalProperties: true,
-            required: ['sira', 'band', 'hedef_kelime', 'kok_tipi', 'zorluk', 'kalip', 'metin_turu', 'bloom', 'kazanim_kod'],
+            required: ['sira', 'band', 'hedef_kelime', 'kok_tipi', 'zorluk', 'kalip', 'metin_turu', 'bloom', 'kazanim_kod', 'hedef_dogru_harf'],
             properties: {
               sira: { type: 'integer' }, band: { type: 'string' }, hedef_kelime: { type: 'integer' },
               kok_tipi: { type: 'string' }, zorluk: { type: 'string' }, kalip: { type: 'string' },
               metin_turu: { type: 'string' }, bloom: { type: 'string' }, dab_kodu: { type: 'string' },
               kazanim_kod: { type: 'string' }, serbest_konu: { type: 'string' },
+              hedef_dogru_harf: { type: 'string', enum: ['A', 'B', 'C', 'D', 'E'] },
             },
           },
         },
@@ -137,9 +138,12 @@ const kurgu = await agent(
   gorev('test_kurgu', `Bu test için blueprint ve kaynak bağlamını üret.
 Girdi: ${JSON.stringify({ sinif, unite, sinav_turu, soru_sayisi, tymm_yolu, ders_kitabi_yolu, blueprint_ref })}
 KAYNAK OKUMA: tymm_yolu ve ders_kitabi_yolu .txt ise doğrudan Read et (pdftotext ÇALIŞTIRMA); .pdf ise pdftotext ile çıkar. Resmî kazanımları (uydurmadan) ve anahtar kavramları çıkar.
-BLUEPRINT: dengeli-ama-standart-olmayan kur (KANON K3/K7/K8/K9).
+BLUEPRINT: dengeli-ama-standart-olmayan kur (KANON K3/K7/K8/K9 + v2 sıkılaştırmaları).
 soru_sayisi BAĞLAYICITIR: TAM ${soru_sayisi} sipariş üret (ne az ne fazla). ${soru_sayisi} < 9 ise (küçük/smoke test) üç bandı (30-70/70-100/100-150) mümkün olduğunca eşit paylaştır (ör. 3 soruda her banttan ~1), yine de en az 1 olumsuz kök + zorluk/kalıp çeşitliliğini koru.
-Çıktı: {blueprint, kaynak_baglami}. blueprint.siparisler tam ${soru_sayisi} eleman içermeli.`),
+V1 (ZORUNLU): her siparişe 'hedef_dogru_harf' ata; test genelinde A-E DENGELİ olsun (hiçbir harf %28'i aşmasın; mekanik A,B,C,D,E deseni değil, karışık).
+V8: kazanımları eşit dağıt (her kazanım ortalama ±1 soru; fark ≤2).
+V9: Analiz/Değerlendirme oranını yüksek tut (testin ≥%50'si gerçek çıkarım/analiz).
+Çıktı: {blueprint, kaynak_baglami}. blueprint.siparisler tam ${soru_sayisi} eleman ve her birinde hedef_dogru_harf içermeli.`),
   { agentType: 'general-purpose', schema: KURGU_OUT, phase: 'Kurgu' }
 )
 
@@ -187,7 +191,10 @@ Band sınırlarına ve hedef_kelime'ye uy; olumsuz kökte vurgu alanını doldur
   (soruMetni, siparis) => {
     if (!soruMetni) return null
     return agent(
-      gorev('secenekler', `Bu soruya 5 şık (A-E), doğru cevabı ve çözümü yaz. D1/D3/D4/D5/D6/D8 kurallarına uy.
+      gorev('secenekler', `Bu soruya 5 şık (A-E), doğru cevabı ve çözümü yaz. D1-D8 + v2 kurallarına uy.
+V1: doğru şıkkı '${siparis.hedef_dogru_harf}' harfine yerleştir; dogru='${siparis.hedef_dogru_harf}'.
+V2: cozum'u tam olarak "Doğru cevap ${siparis.hedef_dogru_harf}: ..." ile başlat; tüm harf atıfları nihai dizilişle tutarlı olsun.
+V3-V6: çeldiriciler öğrenci yanılgısına dayalı (karikatür değil); doğru şık tek cümle parafrazı değil (sentez); tek savunulabilir doğru; uzunluk paritesi.
 SORU (gövde+kök hazır): ${JSON.stringify(soruMetni)}`),
       { agentType: 'general-purpose', schema: SORU_TAM, phase: 'Yaz', label: `secenek:${siparis.sira}` }
     )
@@ -197,7 +204,7 @@ SORU (gövde+kök hazır): ${JSON.stringify(soruMetni)}`),
   async (soruTam, siparis, idx) => {
     if (!soruTam) return null
     const id = `${blueprint_ref}-${String(siparis.sira).padStart(3, '0')}`
-    let soru = { ...soruTam, id, blueprint_ref }
+    let soru = { ...soruTam, id, blueprint_ref, hedef_dogru_harf: siparis.hedef_dogru_harf }
 
     let rapor = await agent(
       gorev('capraz_okuma', `Bu soruyu ACIMASIZCA değerlendir (D1-D11). SORU: ${JSON.stringify(soru)}`),
@@ -215,7 +222,7 @@ TUR: ${tur}`),
         { agentType: 'general-purpose', schema: SORU_TAM, phase: 'Düzelt', label: `duzelt:${siparis.sira}.t${tur}` }
       )
       if (!yeni) break
-      soru = { ...yeni, id, blueprint_ref }
+      soru = { ...yeni, id, blueprint_ref, hedef_dogru_harf: siparis.hedef_dogru_harf }
       rapor = await agent(
         gorev('capraz_okuma', `Düzeltilmiş soruyu tekrar ACIMASIZCA değerlendir (D1-D11). SORU: ${JSON.stringify(soru)}`),
         { agentType: 'general-purpose', schema: RAPOR_OUT, phase: 'Denetle', label: `denetle:${siparis.sira}.t${tur}` }

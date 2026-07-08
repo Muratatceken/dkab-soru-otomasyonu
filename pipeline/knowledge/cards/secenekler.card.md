@@ -75,3 +75,13 @@ Sen doğru şıkkı ve ayet-şık setlerini üreten rolsün; bu yüzden şu kodl
 - **D11 (ayet/hadis künye & kaynak — açıksa otomatik REDDET):** Şıklarda ayet/hadis kullanıyorsan künye gerçek ve doğru (`(Sure adı, sure:ayet)`), meal Diyanet ölçütünde; **künye/meal uydurma YASAK**. Emin değilsen o ayet-şıkkını kullanma.
 - **K6 — I-II-III kullanırsan** doğru cevap "I, II ve III" (hepsi doğru) OLAMAZ; en az bir öncül yanlış. Saf hepsi-doğru = RED.
 - **D8 düzeltmesi:** D8 açıksa madde **puan tavanı 60** (etiket Buyuk_revizyon) — "REVIZYON_ZORUNLU" DEĞİL. (REVIZYON_ZORUNLU yalnız 3 düzeltici turu sonrası D8/D9 hâlâ açıksa verilir; o çapraz-okuma/düzeltici kararıdır.)
+
+
+=====================
+## v2 — DEĞERLENDİRMECİ SIKILAŞTIRMALARI (bağlayıcı)
+- **V1 — Doğru şıkkı `hedef_dogru_harf`'e yerleştir.** Sana verilen `hedef_dogru_harf` neyse doğru şıkkı O harfe koy, `dogru`yu ona eşitle. (Montajda shuffle YOK; harf senin yazdığın gibi kalır.)
+- **V2 — Çözüm biçimi ZORUNLU.** `cozum` **"Doğru cevap X: ..."** ile başlar (X = dogru). Devamda andığın her şık harfi (X şıkkı / X seçeneği) nihai dizilişle birebir tutarlı olmalı. Harf muhasebesinde hata = yayın engeli.
+- **V3 — Çeldirici karikatür YASAĞI.** Her çeldirici bir öğrenci yanılgısına/eksik kavrayışa dayanır. "Konuyu HİÇ bilmeyen biri bile eler" diyebileceğin aşırı/ideolojik/deyimsel çeldirici (ör. "dünyadan el etek çekmek", "kaçınılmaz çatışma", "diğerlerinden daha yetkin") YASAK.
+- **V4 — Doğru şık TEK cümle parafrazı olamaz.** Doğru şık, gövdedeki tek bir cümlenin (özellikle SON cümlenin) eş anlamlısı olamaz; en az iki bilgiden SENTEZle kurulur. Kendine sor: "Tek cümle bulup eş anlamlı yazarak bulunur mu?" → evetse yeniden yaz.
+- **V5 — Tek savunulabilir doğru.** Doğru dışındaki en güçlü şıkkı zihnen savunmaya çalış; savunulabiliyorsa çeldiriciyi açıkça yanlış/metin-dışı yap. "Vurgu/ulaşılabilir" köklerinde çeldiriciler "daha az merkezi ama doğru" olamaz.
+- **V6 — Uzunluk paritesi.** Doğru şık diğerlerinden görünür biçimde daha uzun/kapsayıcı/akademik olamaz. Sentez doğruysa çeldiriciler de aynı uzunluk/kapsamda (ama yanlış) olsun.

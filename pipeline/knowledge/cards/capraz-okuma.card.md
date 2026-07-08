@@ -72,3 +72,17 @@ Sert sınır tetiklenirse set etiketi en fazla `KOŞULLU` (madde ortalaması yü
 Set/test bütününü değerlendirirken (set_duzeyi_uyarilar) şu dağılım tavanlarını da denetle:
 - **Metin türü dağılımı:** `senaryo` ≤ 1 / test (~%5, K1); `aciklama` ≤ %50; `tablo_grafik` ve `alinti_vecize` her biri ≤ %10. Aşımı uyar.
 - **Köksüz (gövdesiz) soru ≤ %3 (K12):** neredeyse tüm sorular gövdeye köprülü kök içermeli; köksüz oran aşımını uyar.
+
+
+=====================
+## v2 — DEĞERLENDİRMECİ SIKILAŞTIRMALARI (bağlayıcı; daha sert denetle)
+- **V2 — Çözüm harf tutarlılığı (KESİN kal-kural).** `cozum` "Doğru cevap X:" ile başlamıyorsa ya da çözümde geçen herhangi bir "doğru cevap Y" / "Y şıkkı/seçeneği" atfı nihai `dogru`/`secenekler` ile çelişiyorsa → madde **Reddet** (harf kayması yayına uygun asla olamaz).
+- **V3 (D4) — Karikatür çeldirici = D4 KALDI.** "Konuyu hiç bilmeyen bile eler" diyebildiğin bir çeldirici varsa D4 geçemez.
+- **V4 (D1/D9) — Tek-cümle-parafraz testi.** Doğru şık gövdeden tek bir cümlenin (özellikle son cümlenin) eş anlamlısıysa D1 veya D9 KALDI; Analiz/Değerlendirme etiketliyse `bloom_uyum=false` de yap.
+- **V5 (D8) — Aktif çürütme.** Doğru dışındaki en güçlü şıkkı AKTİF savun; savunulabiliyorsa D8 KALDI. Olumlu-çıkarım ("ulaşılabilir") kökünde birden çok şık çıkarılabiliyorsa madde geçersiz.
+- **V6 (D2) — Uzunluk paritesi.** En uzun şık = doğru şık ve diğerlerinden belirgin uzunsa D2 KALDI.
+- **V7 (yeni) — Gövdede "seçenek mühendisliği".** Gövdede, çıkarıldığında metnin bütünlüğü bozulmayan ama tam da bir şıkkı doğrulayan/eleyen "yerleştirilmiş" cümle var mı? Varsa `en_kritik_sorunlar`a yaz (soru-metni'nin doğal olmayan müdahalesi).
+- **V9 — bloom_uyum sıkı.** Görev yalnız "eş anlamlıyı bul" ise ve etiket Analiz/Değerlendirme ise `bloom_uyum=false`.
+
+
+- **V9b — Etiket-gerçeklik:** Kök olumsuz "yerini bul" tipiyse (değinilmemiştir/gösterilemez) ve etiket Analiz ise → `bloom_uyum=false` (bu görev Anla düzeyidir). Gerçek Analiz yalnız çok-öğeli sentez/karşılaştırma/öncül-değerlendirme/çıkarım gerektiren köklerde geçerlidir.

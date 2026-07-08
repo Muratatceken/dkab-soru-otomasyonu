@@ -32,11 +32,18 @@ kazanımları, ÖSYM çıkmış sorular, eski soru bankaları).
    - `.claude/workflows/soru-uret.js` — orchestrator **şablonu**. `build_workflow.py`
      ajan md+kart içeriklerini buraya gömüp `soru-uret.built.js` üretir (çalıştırılan
      dosya budur; bu ortamda custom agentType tanınmadığı için gömme gerekiyor).
-   - `pipeline/dkab_pipeline/` — Python render backend (docx/pdf/figür, A-E dengeleme).
+   - `pipeline/dkab_pipeline/` — Python render backend (docx/pdf/figür).
+   - `pipeline/validate.py` — **deterministik doğrulama geçidi** (V1/V2): çözüm↔dogru↔cevap-anahtarı harf tutarlılığı + band + kazanım dengesi. `uret.py render` bunu montajdan önce çalıştırır; sert hata = render durur.
    - `pipeline/kaynak/` — tymm+ders kitabı ünite PDF'lerinin txt cache'i (30 dosya).
 
 Akış: `test-kurgu → blueprint + kaynak_baglami → pipeline(soru-metni → secenekler)
-→ capraz-okuma (adversarial verify) → duzeltici döngü (≤3 tur, KANON G9) → montaj (Python) → docx`.
+→ capraz-okuma (adversarial verify) → duzeltici döngü (≤3 tur, KANON G9)
+→ validate.py (deterministik geçit) → montaj (Python, A–E harfleri üretimde sabit; shuffle YOK) → docx`.
+
+> **Değerlendirmeci v2 sıkılaştırmaları** (KANON §E): doğru harf blueprint'te ön-atanır
+> (`hedef_dogru_harf`), çözüm "Doğru cevap X:" ile başlar, montajda shuffle yapılmaz —
+> böylece çözüm↔anahtar harf kayması (eski en yıkıcı hata) yapısal olarak imkânsızdır.
+> Çeldirici/analiz kuralları da sıkılaştırıldı (V3–V9). Bağımsız değerlendirme: 4/10 → 8/10.
 
 ## Bir test üretmek (tam otomasyon)
 

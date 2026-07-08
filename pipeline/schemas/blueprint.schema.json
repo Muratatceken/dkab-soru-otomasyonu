@@ -24,9 +24,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["sira", "band", "hedef_kelime", "kok_tipi", "zorluk", "kalip", "metin_turu", "bloom", "kazanim_kod"],
+        "required": ["sira", "band", "hedef_kelime", "kok_tipi", "zorluk", "kalip", "metin_turu", "bloom", "kazanim_kod", "hedef_dogru_harf"],
         "properties": {
           "sira": { "type": "integer", "minimum": 1 },
+          "hedef_dogru_harf": { "type": "string", "enum": ["A", "B", "C", "D", "E"], "description": "Ön-atanan doğru cevap harfi (V1); test genelinde A-E dengeli" },
           "band": { "type": "string", "enum": ["30-70", "70-100", "100-150"] },
           "hedef_kelime": { "type": "integer", "minimum": 30, "maximum": 150 },
           "kok_tipi": { "type": "string", "enum": ["olumlu", "olumsuz"] },

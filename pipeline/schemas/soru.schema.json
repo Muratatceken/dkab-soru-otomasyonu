@@ -69,9 +69,9 @@
         "D": { "type": "string" }, "E": { "type": "string" }
       }
     },
-    "dogru": { "type": "string", "enum": ["A", "B", "C", "D", "E"], "description": "İçerikçe doğru şık. Nihai harf montajda dengelenir (K10/G2)." },
-    "cevap_kilit": { "type": "boolean", "description": "montaj A-E dengelemesinden sonra true" },
-    "cozum": { "type": "string", "description": "2-4 cümle: doğru şıkkın metne dayalı gerekçesi + her çeldiricinin neden yanlış olduğu (G1). ZORUNLU." },
+    "hedef_dogru_harf": { "type": "string", "enum": ["A", "B", "C", "D", "E"], "description": "Blueprint'te ön-atanan doğru harf (V1). secenekler doğru şıkkı bu harfe yerleştirir." },
+    "dogru": { "type": "string", "enum": ["A", "B", "C", "D", "E"], "description": "Doğru şıkkın harfi. V1: hedef_dogru_harf'e eşit; montajda shuffle YOK." },
+    "cozum": { "type": "string", "description": "\"Doğru cevap X: ...\" ile BAŞLAR (X=dogru, V2). 2-4 cümle: doğru şıkkın metne dayalı SENTEZ gerekçesi + her çeldiricinin neden yanlış olduğu (G1). Anılan tüm harfler nihai secenekler ile tutarlı olmalı." },
 
     "qc": {
       "type": "object",

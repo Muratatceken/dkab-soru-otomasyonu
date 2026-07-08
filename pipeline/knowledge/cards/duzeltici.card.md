@@ -65,3 +65,12 @@ Kapanışta: blueprint alanları (band/polarite/kazanım/metin_turu/zorluk) değ
 ## KANON DÜZELTMELERİ (bağlayıcı — kart gövdesiyle çelişirse BUNLAR geçerli)
 - **D10 (olgusal hata) düzeltme reçetesi:** doğru şık itikadî/olgusal yanlışsa → doğru bilgiyle değiştir; "yanlış" olması gereken bir çeldirici aslında doğruysa → gerçekten yanlış ama makul bir ifadeyle değiştir; ardından çözümü güncelle. D10 açık = otomatik Reddet olduğundan bu kod açıksa MUTLAKA kapat (kozmetik değil, içerik düzeltmesi).
 - **Değer biçimleri korunur:** `band` (`30-70`/`70-100`/`100-150`), `metin_turu` şema adı, `bloom` ASCII — düzeltirken bu alanların formatını bozma.
+
+
+=====================
+## v2 — DEĞERLENDİRMECİ SIKILAŞTIRMALARI (bağlayıcı)
+- **V1/V2 — Harf tutarlılığını KORU.** `dogru` = `hedef_dogru_harf` kalmalı; `cozum` "Doğru cevap X:" ile başlamalı ve tüm şık atıfları nihai dizilişle tutarlı olmalı. Şık içeriğini değiştirdiysen çözümdeki harf atıflarını da güncelle (harf kayması = en yıkıcı hata).
+- **V3 (D4) düzeltme reçetesi:** karikatür/aşırı çeldiriciyi, öğrenci yanılgısına dayanan makul-ama-yanlış bir ifadeyle değiştir.
+- **V4 (D1/D9):** doğru şık tek cümlenin parafrazıysa, iki ayrı bilgiden sentezlenen bir ifadeye dönüştür; cevabı gövdenin son cümlesinden çıkar.
+- **V5 (D8):** ikinci savunulabilir şıkkı açıkça yanlış/metin-dışı yaparak tek doğruyu sağla.
+- **V6 (D2):** doğru şık fazla uzun/kapsayıcıysa kısalt; çeldiricileri aynı kapsam/uzunluğa çıkar.

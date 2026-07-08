@@ -122,3 +122,14 @@ Herhangi bir madde ihlalse siparişleri düzelt, sonra çıktı ver.
 - **`band` değeri** daima `30-70` | `70-100` | `100-150`.
 - **9 soruluk testte en az 4 olumsuz kök** (3/9=%33 < %35 eşiği RED olur; taban 4).
 - **K6 — I-II-III / "hangileri" öncül formatı ≤ 1 / test.** Kullanılırsa doğru cevap "I, II ve III" (hepsi doğru) OLAMAZ; en az bir öncül yanlış olmalı. Saf hepsi-doğru madde planlanamaz. Bu tavan K-O8/Roma-eşleştirme tavanından ayrıdır.
+
+
+=====================
+## v2 — DEĞERLENDİRMECİ SIKILAŞTIRMALARI (bağlayıcı)
+- **V1 — `hedef_dogru_harf` ata (ZORUNLU).** Her siparişe bir doğru-cevap harfi ata; test genelinde A–E **dengeli** olsun (12 soruda her harf ~2-3; hiçbir harf %28'i aşmasın). Harfleri karıştır (mekanik A,B,C,D,E,A... deseni YASAK). Montajda artık shuffle YOK; harfi burada belirliyorsun.
+- **V8 — Kazanım dengesi.** Kazanımları eşit dağıt: her kazanım **ortalama ±1 soru**. (9–12 soru / 4 kazanım → her biri 2–3.) Bir kazanımı tek soruyla temsil edip başkasına 4 soru vermek YASAK. `dagilim_ozeti`ye kazanım sayımını ekle ve farkın ≤2 olduğunu doğrula.
+- **V9 — Gerçek bilişsel düzey.** Analiz/Değerlendirme etiketli siparişlerin görevi "metindeki cümleyi eş anlamlı bul" olamaz; çok-öğeli çıkarım/karşılaştırma/genelleme gerektir. Testin **en az yarısı** gerçek analiz olsun (salt anlama-parafraz ≤ %50) — Bloom profilini buna göre kur.
+- `dagilim_ozeti` öz-denetimine ekle: [ ] hedef_dogru_harf dengeli (hiçbiri >%28); [ ] kazanım farkı ≤2; [ ] analiz/çıkarım oranı ≥ %50.
+
+
+- **V9b — Etiket dürüstlüğü:** olumsuz "yerini bul" köklerini (değinilmemiştir/gösterilemez/bahsedilmemiştir) **Anla** etiketle, Analiz DEĞİL. Analiz payını gerçek-analiz köklerinden doldur: çok-öğeli sentezli "ulaşılamaz", karşılaştırma (iki_gorus), I-II-III öncül değerlendirme, çıkarım. Böylece testin ≥%50 gerçek analiz hedefi etiket şişirmesiyle değil, gerçek maddelerle karşılanır.

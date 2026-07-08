@@ -113,3 +113,34 @@ Madde puanı 0–100. Her D-kodu ağırlıklı; **D8 (ikinci doğru) veya D9 (so
 | `Buyuk_revizyon` | 50 ≤ puan < 70 |
 | `Reddet` | puan < 50 **veya** D10/D11 açık |
 | `REVIZYON_ZORUNLU` | 3 düzeltici turu sonrası D8/D9 hâlâ açık |
+
+---
+
+## E) v2 — DEĞERLENDİRMECİ GERİ BİLDİRİMİ SIKILAŞTIRMALARI (BAĞLAYICI; öncekilerle çelişirse BUNLAR geçerli)
+
+Bir insan değerlendirmecinin çapraz okuması sonrası eklendi. En yıkıcı bulgu: montaj sonrası A–E karıştırması çözüm metnindeki harf atıflarını bozuyordu (11 soruda 7 çözüm↔anahtar uyuşmazlığı) ve bu, çapraz-okumadan SONRA gerçekleştiği için QC yakalayamıyordu.
+
+**V1 — Cevap harfi BLUEPRINT'te ÖN-ATANIR; montajda shuffle YOKTUR (K10 revize).**
+- test-kurgu her siparişe **dengeli** bir `hedef_dogru_harf` atar (A–E ~eşit; 12 soruda ör. A×3,B×2,C×3,D×2,E×2 — karıştırılmış).
+- seçenekler doğru şıkkı **tam o harfe** yerleştirir, `dogru = hedef_dogru_harf` yapar ve çözümü **NİHAİ** harflere göre yazar.
+- `assemble.py` **shuffle YAPMAZ**; sadece dizer. Böylece çözüm harfleri her zaman doğrudur.
+
+**V2 — Çözüm harf tutarlılığı ZORUNLU + sabit biçim.**
+- `cozum` **"Doğru cevap X: ..."** ile başlar (X = `dogru`). Devamda anılan tüm şık harfleri (`X şıkkı`, `X seçeneği`) NİHAİ `secenekler`/`dogru` ile birebir tutarlı olmalı.
+- `validate.py` (yeni deterministik geçit) çözüm baş-harfini, tüm harf atıflarını ve cevap anahtarını `dogru` ile karşılaştırır; **herhangi bir uyuşmazlık = yayın engeli.** capraz-okuma da bunu denetler (harf muhasebesini asla LLM'e bırakma — deterministik geçit esastır).
+
+**V3 — Çeldirici "karikatür yasağı" (D4 sıkılaştırma).** Çeldiriciler öğrenci yanılgısından / eksik-yanlış kavrayıştan üretilir. Sağduyuyla anında elenen aşırı, ideolojik ya da deyimsel çeldirici YASAK (ör. "dünyadan el etek çekmek", "kaçınılmaz çatışma", "diğerlerinden daha yetkin"). **Test:** "Bu çeldiriciyi, konuyu HİÇ bilmeyen biri bile eleyebilir mi?" → evet ise D4 KALDI. Her çeldirici, metni yarım/yanlış anlayan öğrenciyi çekecek kadar makul olmalı.
+
+**V4 — Doğru şık TEK cümle parafrazı OLAMAZ (D1/D9 sıkılaştırma).** Doğru şık, gövdedeki tek bir cümlenin (ÖZELLİKLE son/sonuç cümlesinin) eş anlamlı tekrarı olamaz; en az iki ayrı bilgiden **sentezle** kurulur. **Test:** "Doğru şık, gövdeden tek bir cümle bulunup eş anlamlı yazılarak bulunabiliyor mu?" → evet ise D1 veya D9 KALDI. Analiz/Değerlendirme etiketli soruda bu ihlal aynı zamanda `bloom_uyum=false`.
+
+**V5 — Tek savunulabilir cevap; aktif çürütme (D8 sıkılaştırma).** capraz-okuma doğru dışındaki **en güçlü** şıkkı seçip onu AKTİF savunmaya çalışır; savunulabiliyorsa D8 KALDI. "Vurgu / ana fikir / ulaşılabilir" köklerinde risk yüksektir: çeldiriciler "daha az merkezi ama yine de doğru" OLAMAZ — açıkça metin-dışı veya yanlış olmalı. Olumlu-çıkarım ("ulaşılabilir") kökünde birden çok şık metinden çıkarılabiliyorsa madde geçersizdir.
+
+**V6 — Doğru şık uzunluk/kapsam PARİTESİ (D2 sıkılaştırma).** Doğru şık, diğerlerinden görünür biçimde daha uzun / daha kapsayıcı / daha akademik OLAMAZ. Doğru şık bir sentez ise, çeldiriciler de aynı kapsam ve uzunlukta (ama yanlış) yazılır. **Test:** en uzun şık = doğru şık ve diğerlerinden belirgin uzun ise D2 KALDI.
+
+**V7 — Gövdede "seçenek mühendisliği" cümlesi YASAK (soru-metni + capraz-okuma).** Gövde kendi iç tutarlılığı için yazılır; yalnızca bir çeldiriciyi elemek veya bir şıkkı kurmak için eklenmiş, doğal bilgi akışını bozan cümle içeremez. **Test:** "Gövdede, çıkarıldığında metnin bütünlüğü bozulmayan ama tam da bir şıkkı doğrulayan/eleyen 'yerleştirilmiş' bir cümle var mı?" → varsa işaretle (soru-metni yazmamalı, capraz-okuma yakalamalı).
+
+**V8 — Kazanım dengesi (test-kurgu).** Bir testte kazanımlar olabildiğince eşit dağıtılır: her kazanım **ortalama ±1 soru**. Bir kazanımı tek soruyla temsil edip başka birine 4 soru vermek YASAK (9–12 soru / 4 kazanım → her biri 2–3).
+
+**V9 — Gerçek bilişsel düzey (soru-metni + secenekler + capraz-okuma).** Analiz/Değerlendirme etiketli sorularda görev "metindeki cümleyi eş anlamlı bul" OLAMAZ; en az iki öğeyi birleştiren çıkarım / karşılaştırma / genelleme gerekir. Bir testin **en az yarısı** gerçek çıkarım/analiz olmalı (salt anlama-parafraz maddeleri ≤ %50). capraz-okuma `bloom_uyum`u bu ölçütle sıkı uygular.
+
+**V9b — Olumsuz "yerini bul" kökleri Analiz DEĞİLDİR (etiket dürüstlüğü).** "değinilmemiştir / bahsedilmemiştir / örnek gösterilemez" gibi, dört doğrulanabilir öncülü ayıklayıp aykırı olanı bulmaya dayanan olumsuz kökler biliş düzeyi olarak **Anla**'dır; bunları Analiz etiketleme. Gerçek Analiz payını şu köklerle doldur: çok-öğeli sentez ("ulaşılamaz" + gövdeden birleştirme), karşılaştırma (iki_gorus), öncül değerlendirme (I-II-III), çıkarım. test-kurgu Bloom profilini bu dürüstlükle kurar; capraz-okuma `bloom_uyum`u buna göre denetler (etiket Analiz ama görev "aykırı olanı bul" ise bloom_uyum=false).

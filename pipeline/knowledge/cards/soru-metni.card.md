@@ -99,3 +99,10 @@ Blueprint `metin_turu`yu verir; reçeteye göre yaz:
 - **`bloom` değeri ASCII**: `Hatirla` | `Anla` | `Uygula` | `Analiz` | `Degerlendirme`.
 - **Kelime sayımı (`kelime_sayisi`)**: yalnız gövde metni. Ayet künyesi `(Sure adı, sure:ayet)`, "(hadis-i şerif)" etiketi, kök ve şıklar sayıya **DAHİL DEĞİL**. (Aksi halde ayet/hadis gövdesinde band yanlış sayılır → gereksiz RED.)
 - İmlâ: `filozof`, `ilim` (küçük harf, doğru yazım); dinî terimlerde bozuk imlâ yok.
+
+
+=====================
+## v2 — DEĞERLENDİRMECİ SIKILAŞTIRMALARI (bağlayıcı)
+- **V7 — "Seçenek mühendisliği" cümlesi YASAK.** Gövdeyi yalnız kendi iç tutarlılığı için yaz. Sırf bir çeldiriciyi elemek/bir şıkkı kurmak için eklenen, çıkarılınca metnin akışını bozmayan yapay cümleler koyma (ör. konuyu tam gerektirmediği hâlde "…karşılığında ödül beklenen bir uğraş değildir" gibi bir şıkkı devre dışı bırakan ekleme).
+- **V9 — Analiz için sentez gerektir.** Sipariş Analiz/Değerlendirme ise gövdeyi öyle kur ki doğru cevap TEK cümlenin tekrarı değil, en az iki öğenin birleştirilmesiyle (karşılaştırma/çıkarım/genelleme) bulunabilsin. Ana fikri son cümlede açıkça söyleyip bitirme (D9); okuru sentez yapmaya bırak.
+- Not: doğru cevabı ima etme kuralı sürüyor; hedef_dogru_harf'i sen görmezsin, yalnız gövde+kök yazarsın.
