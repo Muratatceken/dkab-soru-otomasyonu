@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "soru.schema.json",
+  "title": "DKAB Soru",
+  "description": "Ajanlar arası akan kanonik soru nesnesi. soru-metni ve seçenekler ajanları doldurur; çapraz-okuma qc/qc_icerik/etiket ekler; düzeltici revizyon_gecmisi ekler.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "sinif", "sinav_turu", "unite", "kazanim", "zorluk", "bloom",
+    "metin", "metin_turu", "kelime_sayisi", "band",
+    "kok", "kok_tipi", "kalip",
+    "secenekler", "dogru", "cozum"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^DKAB\\d{1,2}-U\\d-\\d{3}$", "description": "DKAB{sinif}-U{unite}-{sira}, ör. DKAB11-U2-007" },
+    "sinif": { "type": "integer", "enum": [9, 10, 11] },
+    "sinav_turu": { "type": "string", "enum": ["TYT", "AYT", "karma"], "description": "Bloom profili ve olumsuz oran bu alana bağlıdır (K9)" },
+    "unite": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "kazanim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kod", "serbest_konu"],
+      "properties": {
+        "kod": { "type": "string", "description": "Resmî kod, ör. 11.2.1 — tymm dosyasından, uydurulamaz" },
+        "baslik": { "type": "string" },
+        "alt_bilesen": { "type": ["string", "null"] },
+        "serbest_konu": { "type": "string", "description": "İnsan-okunur konu adı" }
+      }
+    },
+    "dab_kodu": { "type": "string", "description": "DAB alt beceri kodu; belirsizse 'belirsiz'" },
+    "bloom": { "type": "string", "enum": ["Hatirla", "Anla", "Uygula", "Analiz", "Degerlendirme"] },
+    "zorluk": { "type": "string", "enum": ["kolay", "orta", "zor"] },
+
+    "metin": { "type": "string", "description": "Soru gövdesi/stimulus. Kök ve şıklar HARİÇ. Ayrı paragraf." },
+    "metin_turu": { "type": "string", "enum": ["aciklama", "ayet_meal", "hadis", "iki_gorus", "tablo_grafik", "alinti_vecize", "senaryo"], "description": "soru_kalip_havuzu metin türü" },
+    "gorsel": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "tur": { "type": "string", "enum": ["harita", "tablo", "grafik", "gorsel"] },
+        "veri": { "type": "string", "description": "veri URI, HTML tablo ya da yol" },
+        "alt_metin": { "type": "string", "description": "çapraz-okuma botunun okuyacağı metinsel karşılık" }
+      }
+    },
+    "kelime_sayisi": { "type": "integer", "minimum": 30, "maximum": 150, "description": "YALNIZ metin (gövde) kelime sayısı" },
+    "band": { "type": "string", "enum": ["30-70", "70-100", "100-150"] },
+    "hedef_kelime": { "type": "integer", "description": "blueprint jitter hedefi; kelime_sayisi bundan ±10 sapabilir" },
+
+    "kok": { "type": "string", "description": "Soru cümlesi. Ayrı paragraf. Yönlendirme ifadesiyle metne köprü kurar." },
+    "kok_tipi": { "type": "string", "enum": ["olumlu", "olumsuz"] },
+    "kalip": { "type": "string", "description": "Kök kalıp kodu (soru_kalip_havuzu), ör. K-O1, K-N2" },
+    "vurgu": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["sozcuk", "bicim"],
+      "description": "Olumsuz kökte ZORUNLU dolu (K2). Sınırlayıcı zarf köke konursa da doldurulur.",
+      "properties": {
+        "sozcuk": { "type": "string", "description": "vurgulanan sözcük, ör. söylenemez" },
+        "bicim": { "type": "string", "enum": ["alti_cizili"], "description": "kanonik biçim: altı çizili (K2)" }
+      }
+    },
+
+    "secenekler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["A", "B", "C", "D", "E"],
+      "properties": {
+        "A": { "type": "string" }, "B": { "type": "string" }, "C": { "type": "string" },
+        "D": { "type": "string" }, "E": { "type": "string" }
+      }
+    },
+    "dogru": { "type": "string", "enum": ["A", "B", "C", "D", "E"], "description": "İçerikçe doğru şık. Nihai harf montajda dengelenir (K10/G2)." },
+    "cevap_kilit": { "type": "boolean", "description": "montaj A-E dengelemesinden sonra true" },
+    "cozum": { "type": "string", "description": "2-4 cümle: doğru şıkkın metne dayalı gerekçesi + her çeldiricinin neden yanlış olduğu (G1). ZORUNLU." },
+
+    "qc": {
+      "type": "object",
+      "description": "çapraz-okuma D1-D9 sonuçları",
+      "additionalProperties": false,
+      "properties": {
+        "D1": { "$ref": "#/$defs/dcheck" }, "D2": { "$ref": "#/$defs/dcheck" },
+        "D3": { "$ref": "#/$defs/dcheck" }, "D4": { "$ref": "#/$defs/dcheck" },
+        "D5": { "$ref": "#/$defs/dcheck" }, "D6": { "$ref": "#/$defs/dcheck" },
+        "D7": { "$ref": "#/$defs/dcheck" }, "D8": { "$ref": "#/$defs/dcheck" },
+        "D9": { "$ref": "#/$defs/dcheck" }
+      }
+    },
+    "qc_icerik": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "D10/D11 olgusal ve dinî doğruluk (G4/G5)",
+      "properties": {
+        "D10_olgusal": { "$ref": "#/$defs/dcheck" },
+        "D11_dini_kunye": { "$ref": "#/$defs/dcheck" },
+        "meal_kaynak": { "type": "string" },
+        "supheli_kunye": { "type": "boolean" }
+      }
+    },
+    "madde_puani": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "etiket": { "type": "string", "enum": ["Yayina_uygun", "Kucuk_duzeltme", "Buyuk_revizyon", "Reddet", "REVIZYON_ZORUNLU"] },
+    "revizyon_gecmisi": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tur", "kapatilan_D", "degisiklik_ozeti"],
+        "properties": {
+          "tur": { "type": "integer" },
+          "kapatilan_D": { "type": "array", "items": { "type": "string" }, "description": "boş olamaz — kozmetik yama yasağı (G9)" },
+          "degisiklik_ozeti": { "type": "string" }
+        }
+      }
+    },
+    "blueprint_ref": { "type": "string" },
+    "uretici_versiyon": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ajan": { "type": "string" }, "model": { "type": "string" }, "tarih": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "dcheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gecti"],
+      "properties": {
+        "gecti": { "type": "boolean" },
+        "not": { "type": "string" },
+        "kanit": { "type": "string" }
+      }
+    }
+  }
+}

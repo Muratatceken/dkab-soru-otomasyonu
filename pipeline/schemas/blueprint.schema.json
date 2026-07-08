@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "blueprint.schema.json",
+  "title": "Test Blueprint",
+  "description": "test-kurgu ajanının çıktısı: soru üretilmeden ÖNCE testin planı. Her sipariş bir soruya karşılık gelir. Dağılım dengeli-ama-standart-olmayan olmalı (K7/K8/K9).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["blueprint_ref", "sinif", "unite", "sinav_turu", "soru_sayisi", "siparisler", "dagilim_ozeti"],
+  "properties": {
+    "blueprint_ref": { "type": "string", "description": "ör. DKAB11-U2-T1 (set/test kimliği)" },
+    "sinif": { "type": "integer", "enum": [9, 10, 11] },
+    "unite": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "sinav_turu": { "type": "string", "enum": ["TYT", "AYT", "karma"] },
+    "soru_sayisi": { "type": "integer", "minimum": 9, "maximum": 12 },
+    "kazanim_kapsami": {
+      "type": "array",
+      "description": "bu testin kapsadığı resmî kazanım kodları",
+      "items": { "type": "string" }
+    },
+    "siparisler": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sira", "band", "hedef_kelime", "kok_tipi", "zorluk", "kalip", "metin_turu", "bloom", "kazanim_kod"],
+        "properties": {
+          "sira": { "type": "integer", "minimum": 1 },
+          "band": { "type": "string", "enum": ["30-70", "70-100", "100-150"] },
+          "hedef_kelime": { "type": "integer", "minimum": 30, "maximum": 150 },
+          "kok_tipi": { "type": "string", "enum": ["olumlu", "olumsuz"] },
+          "zorluk": { "type": "string", "enum": ["kolay", "orta", "zor"] },
+          "kalip": { "type": "string", "description": "kök kalıp kodu; ardışık siparişlerde tekrar edemez (K8)" },
+          "metin_turu": { "type": "string", "enum": ["aciklama", "ayet_meal", "hadis", "iki_gorus", "tablo_grafik", "alinti_vecize", "senaryo"] },
+          "bloom": { "type": "string", "enum": ["Hatirla", "Anla", "Uygula", "Analiz", "Degerlendirme"] },
+          "dab_kodu": { "type": "string" },
+          "kazanim_kod": { "type": "string" },
+          "serbest_konu": { "type": "string" }
+        }
+      }
+    },
+    "dagilim_ozeti": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "planın normlara uyduğunun öz-denetimi (K3/K7/K8/K9)",
+      "required": ["band_dagilimi", "polarite", "zorluk_dagilimi", "kalip_cesitliligi"],
+      "properties": {
+        "band_dagilimi": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "30-70": { "type": "integer" }, "70-100": { "type": "integer" }, "100-150": { "type": "integer" } },
+          "description": "her bant 3-4 (K7)"
+        },
+        "polarite": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "olumlu": { "type": "integer" }, "olumsuz": { "type": "integer" }, "olumsuz_oran": { "type": "number" } },
+          "description": "olumsuz_oran 0.35-0.45 (K3)"
+        },
+        "zorluk_dagilimi": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "kolay": { "type": "integer" }, "orta": { "type": "integer" }, "zor": { "type": "integer" } }
+        },
+        "kalip_cesitliligi": {
+          "type": "object", "additionalProperties": false,
+          "properties": { "farkli_kalip_sayisi": { "type": "integer" }, "en_cok_kullanilan_kalip_orani": { "type": "number" } },
+          "description": "en_cok_kullanilan ≤0.25 (K8)"
+        }
+      }
+    }
+  }
+}

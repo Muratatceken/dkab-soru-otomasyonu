@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rapor.schema.json",
+  "title": "Çapraz Okuma Raporu",
+  "description": "çapraz-okuma ajanının bir soru için çıktısı. Acımasız, kanıta dayalı. Her D-kodu için geçti/kaldı + kanıt + düzeltici için somut öneri.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["soru_id", "kontroller", "madde_puani", "etiket", "en_kritik_sorunlar"],
+  "properties": {
+    "soru_id": { "type": "string" },
+    "kontroller": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10_olgusal", "D11_dini_kunye"],
+      "properties": {
+        "D1": { "$ref": "#/$defs/kontrol" },
+        "D2": { "$ref": "#/$defs/kontrol" },
+        "D3": { "$ref": "#/$defs/kontrol" },
+        "D4": { "$ref": "#/$defs/kontrol" },
+        "D5": { "$ref": "#/$defs/kontrol" },
+        "D6": { "$ref": "#/$defs/kontrol" },
+        "D7": { "$ref": "#/$defs/kontrol" },
+        "D8": { "$ref": "#/$defs/kontrol" },
+        "D9": { "$ref": "#/$defs/kontrol" },
+        "D10_olgusal": { "$ref": "#/$defs/kontrol" },
+        "D11_dini_kunye": { "$ref": "#/$defs/kontrol" }
+      }
+    },
+    "band_uyum": { "type": "boolean", "description": "kelime_sayisi atanan band içinde mi (G12)" },
+    "zorluk_uyum": { "type": "boolean", "description": "atanan zorluk gerçekten tutuyor mu (G16)" },
+    "bloom_uyum": { "type": "boolean", "description": "atanan Bloom düzeyi tutuyor mu (G11)" },
+    "madde_puani": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "etiket": { "type": "string", "enum": ["Yayina_uygun", "Kucuk_duzeltme", "Buyuk_revizyon", "Reddet", "REVIZYON_ZORUNLU"] },
+    "en_kritik_sorunlar": {
+      "type": "array",
+      "description": "en önemli 1-3 sorun, düzeltici için öncelik sırasıyla",
+      "items": { "type": "string" }
+    },
+    "set_duzeyi_uyarilar": {
+      "type": "array",
+      "description": "yalnız set/test bütünü değerlendirilirken doldurulur (yarı-mükerrer, A-E dengesizliği, olumsuz oran, kalıp tekdüzeliği)",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "kontrol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gecti", "kanit", "oneri"],
+      "properties": {
+        "gecti": { "type": "boolean" },
+        "kanit": { "type": "string", "description": "neden geçti/kaldı — sorudan alıntıyla" },
+        "oneri": { "type": "string", "description": "kaldıysa düzeltici ne yapmalı — somut" }
+      }
+    }
+  }
+}
